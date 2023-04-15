@@ -1,18 +1,24 @@
-import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { GetServerSideProps, NextPage } from "next";
+import { useState } from "react";
+import styles from "./index.module.css";
+
+// getServerSidePropsから渡されるpropsの型
+type Props = {
+    initialImageUrl: string;
+};
 
 // TODO: アロー関数と関数宣言について調べる
-const IndexPage: NextPage = () => {
+const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
     // ❶ useStateを使って状態を定義する
-    const [imageUrl, setImageUrl] = useState("");
+    const [imageUrl, setImageUrl] = useState(initialImageUrl);
     const [loading, setLoading] = useState(true);
     // ❷ マウント時に画像を読み込む宣言
-    useEffect(() => {
-        fetchImage().then((newImage) => {
-            setImageUrl(newImage.url); // 画像URLの状態を更新する
-            setLoading(false); // ローディング状態を更新する
-        });
-    }, []); // 第2引数はどのタイミングで処理内容を実行するかの指定
+    // useEffect(() => {
+    //     fetchImage().then((newImage) => {
+    //         setImageUrl(newImage.url); // 画像URLの状態を更新する
+    //         setLoading(false); // ローディング状態を更新する
+    //     });
+    // }, []); // 第2引数はどのタイミングで処理内容を実行するかの指定
 
     const handleClick = async () => {
         setLoading(true); // 読込中フラグを立てる
@@ -21,13 +27,27 @@ const IndexPage: NextPage = () => {
         setLoading(false); // 読込中フラグを倒す
     };
     return (
-        <div>
-            <button onClick={handleClick}>他のにゃんこも見る</button>
-            <div>{loading || <img src={imageUrl} />}</div>
+        <div className={styles.page}>
+            <button onClick={handleClick} className={styles.button}>
+                他のにゃんこも見る
+            </button>
+            <div className={styles.frame}>
+                {loading || <img src={imageUrl} className={styles.img} />}
+            </div>
         </div>
     );
 };
 export default IndexPage;
+
+// サーバーサイドで実行する処理
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+    const image = await fetchImage();
+    return {
+        props: {
+            initialImageUrl: image.url,
+        },
+    };
+};
 
 type Image = {
     url: string;
