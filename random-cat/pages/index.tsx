@@ -40,6 +40,9 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
             >
                 きょうのにゃんこ🐱
             </button>
+            <div className={styles.frame}>
+                {loading || <img src={imageUrl} className={styles.img} />}
+            </div>
         </div>
     );
 };
