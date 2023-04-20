@@ -23,4 +23,3 @@
 
 ## 参考文献
 - [【初心者向け】NPMとpackage.jsonを概念的に理解する](https://qiita.com/righteous/items/e5448cb2e7e11ab7d477)
-
