@@ -10,3 +10,9 @@ test("Clicking the button toggles the display between ON and OFF.", async () => 
     await user.click(simpleButton); // userEvent.click(simpleButton)が実行されるまで待機
     expect(simpleButton).toHaveTextContent("ON");
 });
+
+// https://jestjs.io/ja/docs/snapshot-testing
+test("As soon as it is drawn, it is marked OFF.", () => {
+    const view = render(<SimpleButton />);
+    expect(view.container).toMatchSnapshot();
+});
