@@ -1,5 +1,5 @@
 {
-  "name": "jest-tutorial",
+  "name": "jest",
   "license": "UNLICENSED",
   "devDependencies": {
     "@types/jest": "^28.0.0",

@@ -1,5 +1,5 @@
 {
-  "name": "eslint-typescript-tutorial",
+  "name": "eslint-typescript",
   "license": "UNLICENSED",
   "devDependencies": {
     "@types/node": "^18.15.13",
